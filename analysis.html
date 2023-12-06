@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Analysis Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .back{
+            text-decoration: none;
+            display: block;
+            background-color: red;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align:center
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cryptocurrency Analysis Tool</h1>
+    </header>
+    <div class="container">
+        <h2>Simple Moving Average (SMA) Analysis</h2>
+        <label for="cryptoPrice">Enter Crypto Price Data (comma-separated):</label>
+        <input type="text" id="cryptoPrice" placeholder="e.g., 5000, 5100, 5200">
+        <label for="smaPeriod">SMA Period:</label>
+        <input type="number" id="smaPeriod" placeholder="e.g., 7">
+        <button onclick="calculateSMA()">Calculate SMA</button>
+        <p><strong>SMA Result:</strong> <span id="smaResult"></span></p>
+    </div>
+
+    <script>
+        function calculateSMA() {
+            const cryptoPriceInput = document.getElementById("cryptoPrice").value;
+            const smaPeriod = parseInt(document.getElementById("smaPeriod").value);
+            const cryptoPrices = cryptoPriceInput.split(",").map(Number);
+
+            if (cryptoPrices.length < smaPeriod) {
+                alert("Insufficient data for the specified SMA period.");
+                return;
+            }
+
+            const smaArray = [];
+            for (let i = smaPeriod; i <= cryptoPrices.length; i++) {
+                const slice = cryptoPrices.slice(i - smaPeriod, i);
+                const smaValue = slice.reduce((a, b) => a + b, 0) / smaPeriod;
+                smaArray.push(smaValue.toFixed(2));
+            }
+
+            document.getElementById("smaResult").textContent = smaArray.join(", ");
+        }
+    </script>
+    <a  class="back" href="website.html">back to home</a>
+</body>
+</html>
